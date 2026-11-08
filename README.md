@@ -169,18 +169,30 @@ Shift 명령어(`SLLI` · `SRLI` · `SRAI`)는 `imm[11:5]` 자리에 `funct7`이
 
 ```text
 .
-├── rv32i_cpu.sv            # CPU Top (Control Unit + Datapath)
-├── control_unit.sv         # opcode / funct 디코딩 → Control Signal
-├── rv32i_datapath.sv       # PC · Register File · ALU · Imm Extend · MUX
-├── instruction_mem.sv      # Instruction ROM
-├── data_mem.sv             # Data RAM
-├── define.vh               # opcode / ALU 제어 정의
-├── instruction_code.mem    # 실행 Machine Code
-├── top_rv32i_soc.sv        # 보드 Top
-├── tb_rv32i.sv             # Single-Cycle Testbench
-├── Basys-3-Master.xdc
-├── docs/                   # README 이미지
-└── MulticycleCPU/          # 5-state Multi-Cycle CPU (control_unit · datapath · tb_multi_rv32i 등)
+├── Single-Cycle/              # RV32I Single-Cycle CPU
+│   ├── rv32i_cpu.sv           # CPU Top (Control Unit + Datapath)
+│   ├── control_unit.sv        # opcode / funct 디코딩 → Control Signal
+│   ├── rv32i_datapath.sv      # PC · Register File · ALU · Imm Extend · MUX
+│   ├── instruction_mem.sv     # Instruction ROM
+│   ├── data_mem.sv            # Data RAM
+│   ├── define.vh              # opcode / ALU 제어 정의
+│   ├── instruction_code.mem   # 실행 Machine Code
+│   ├── top_rv32i_soc.sv       # 보드 Top
+│   ├── tb_rv32i.sv            # Testbench
+│   └── Basys-3-Master.xdc
+├── Multi-Cycle/               # 5-state Multi-Cycle CPU (FETCH → DECODE → EXECUTE → MEM → WB)
+│   ├── rv32i_cpu.sv           # CPU Top
+│   ├── control_unit.sv        # 5-state FSM + Control Signal
+│   ├── datapath.sv            # 단계 사이 레지스터를 둔 Datapath
+│   ├── instr_mem.sv           # Instruction ROM
+│   ├── data_mem.sv            # Data RAM
+│   ├── define.vh
+│   ├── instruction_code.mem
+│   ├── top.sv                 # 보드 Top
+│   ├── tb_multi_rv32i.sv      # Testbench
+│   └── Basys-3-Master.xdc
+├── docs/                      # README 이미지
+└── README.md
 ```
 
 ## 개선 방향
